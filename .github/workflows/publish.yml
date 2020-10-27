@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - id: versionnumber
+      - id: releasenumber
         uses: pixl8/github-action-twgit-release-version-generator@master
 
       - uses: DominicWatson/box-publish-github-action@master
@@ -22,5 +22,5 @@ jobs:
           FORGEBOX_USER: pixl8
           FORGEBOX_PASS: ${{ secrets.FORGEBOX_PASS }}
           # DOWNLOAD_URL:  ${{ steps.create_release.outputs.upload_url }}
-          VERSION_NUMBER: ${{ steps.versionnumber.outputs.version_number }}
+          VERSION_NUMBER: ${{ steps.releasenumber.outputs.release_number }}
           # BOXJSON_DIR: subdir/another/ (if your box.json is not in the root of your project)
