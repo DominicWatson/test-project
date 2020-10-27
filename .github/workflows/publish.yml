@@ -44,7 +44,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: Publish to forgebox
-        uses: pixl8/box-publish-github-action@v1
+        uses: pixl8/github-action-box-publish@v1
         env:
           FORGEBOX_USER: pixl8
           FORGEBOX_PASS: ${{ secrets.FORGEBOX_PASS }}
