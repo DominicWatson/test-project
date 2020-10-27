@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: publish
-      uses: DominicWatson/box-publish-github-action
+      uses: DominicWatson/box-publish-github-action@master
       env:
         FORGEBOX_USER: pixl8
         FORGEBOX_PASS: ${{ secrets.FORGEBOX_PASS }}
