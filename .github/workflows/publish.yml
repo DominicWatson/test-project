@@ -1,4 +1,4 @@
-name: Publish to forgebox
+name: Release
 # you may wish to trigger this for other specifics, this is an example
 on:
   push:
@@ -6,16 +6,20 @@ on:
       - v*
 
 jobs:
-  publish:
-    name: Publish to forgebox
+  release:
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - uses: pixl8/github-action-twgit-release-version-generator@master
-      - uses: pixl8/github-action-build-preside-extension@master
+      - name: Generate release version number
+        uses: pixl8/github-action-twgit-release-version-generator@master
+
+      - name: Package extension zip
+        uses: pixl8/github-action-build-preside-extension@master
 
       - name: Create Release
         id: create_release
@@ -24,7 +28,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ env.RELEASE_NUMBER }}
           draft: false
           prerelease: false
 
@@ -39,7 +43,8 @@ jobs:
           asset_name: ${{ env.RELEASE_NUMBER }}.zip
           asset_content_type: application/zip
 
-      # - uses: pixl8/box-publish-github-action@master
+      # - name: Publish to forgebox
+      #   uses: pixl8/box-publish-github-action@master
       #   env:
       #     FORGEBOX_USER: pixl8
       #     FORGEBOX_PASS: ${{ secrets.FORGEBOX_PASS }}
