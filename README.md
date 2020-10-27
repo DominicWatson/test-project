@@ -1,1 +1,2 @@
-Dummy project to test github actions
+Dummy project to test github actions.
+Another change
