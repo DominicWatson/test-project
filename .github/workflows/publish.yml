@@ -15,5 +15,5 @@ jobs:
       uses: DominicWatson/box-publish-github-action
       env:
         FORGEBOX_USER: pixl8
-        FORGEBOX_PASS: {{ secrets.FORGEBOX_PASS }}
+        FORGEBOX_PASS: ${{ secrets.FORGEBOX_PASS }}
         # BOXJSON_DIR: subdir/another/ (if your box.json is not in the root of your project)
