@@ -1,0 +1,19 @@
+# .github/workflows/publish.yml
+name: Publish to forgebox
+# you may wish to trigger this for other specifics, this is an example
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  publish:
+    name: Publish to forgebox
+    runs-on: ubuntu-latest
+    steps:
+    - name: publish
+      uses: DominicWatson/box-publish-github-action
+      env:
+        FORGEBOX_USER: pixl8
+        FORGEBOX_PASS: {{ secrets.FORGEBOX_PASS }}
+        # BOXJSON_DIR: subdir/another/ (if your box.json is not in the root of your project)
