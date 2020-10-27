@@ -14,9 +14,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - id: releasenumber
-        uses: pixl8/github-action-twgit-release-version-generator@master
-
+      - uses: pixl8/github-action-twgit-release-version-generator@master
       - uses: pixl8/github-action-build-preside-extension@master
 
       - name: Create Release
