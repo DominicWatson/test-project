@@ -2,7 +2,7 @@
     "name":"Test package",
     "slug":"test-my-package",
     "type":"modules",
-    "version":"${RELEASE_NUMBER}",
+    "version":"6.0.0",
     "location":"${DOWNLOAD_URL}",
     "author":"Dominic Watson",
     "description":"Test description",
