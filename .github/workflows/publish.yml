@@ -17,7 +17,7 @@ jobs:
 
       - name: Generate release version number
         id: versiongen
-        uses: pixl8/github-action-twgit-release-version-generator@v1
+        uses: pixl8/github-action-twgit-release-version-generator@master
 
       - name: Package extension zip
         uses: pixl8/github-action-build-preside-extension@master
