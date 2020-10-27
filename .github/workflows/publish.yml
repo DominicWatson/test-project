@@ -33,7 +33,7 @@ jobs:
           prerelease: false
 
       - name: Upload Release Asset
-        id: upload-release-asset
+        id: upload
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -43,8 +43,9 @@ jobs:
           asset_name: ${{ env.RELEASE_NUMBER }}.zip
           asset_content_type: application/zip
 
-      # - name: Publish to forgebox
-      #   uses: pixl8/box-publish-github-action@master
-      #   env:
-      #     FORGEBOX_USER: pixl8
-      #     FORGEBOX_PASS: ${{ secrets.FORGEBOX_PASS }}
+      - name: Publish to forgebox
+        uses: pixl8/box-publish-github-action@v1
+        env:
+          FORGEBOX_USER: pixl8
+          FORGEBOX_PASS: ${{ secrets.FORGEBOX_PASS }}
+          DOWNLOAD_URL: ${{ steps.upload.outputs.browser_download_url }}
