@@ -22,7 +22,7 @@ jobs:
         run: echo "Release string = ${{ steps.version-generator.outputs.semver_release_string }}"
 
       - id: test2
-        run: echo "Release snapshot = ${{ steps.version-generator.outputs.semver_is_snapshot }}"
+        run: echo "Release snapshot really = ${{ steps.version-generator.outputs.semver_is_snapshot }}"
 
       # - name: Package extension zip
       #   uses: pixl8/github-action-build-preside-extension@master
