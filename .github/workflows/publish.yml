@@ -52,5 +52,5 @@ jobs:
           forgebox_user: pixl8
           forgebox_pass: ${{ secrets.FORGEBOX_PASS }}
         env:
-          DOWNLOAD_LOCATION: OHMY
+          TEST: ${{ steps.upload.outputs.browser_download_url }}
           VERSION_NUMBER: ${{ steps.versiongen.outputs.semver_release_string }}

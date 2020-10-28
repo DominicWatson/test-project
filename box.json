@@ -3,9 +3,9 @@
     "slug":"test-my-package",
     "type":"modules",
     "version":"${VERSION_NUMBER}",
-    "location":"${DOWNLOAD_LOCATION}",
+    "location":"${TEST}",
     "author":"Dominic Watson",
-    "description":"Test description",
+    "description":"Test description ${VERSION_NUMBER} ${TEST}",
     "ignore":[
         "**/.*",
         "/test/",
