@@ -21,7 +21,7 @@ jobs:
 
       - name: Package extension zip
         id: package
-        uses: pixl8/github-action-build-preside-extension@master
+        uses: pixl8/github-action-build-preside-extension@v1
         env:
           VERSION_NUMBER: ${{ steps.versiongen.outputs.semver_release_string }}
 
