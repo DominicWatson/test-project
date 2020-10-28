@@ -15,13 +15,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      # - name: Generate release version number
-      #   id: versiongen
-      #   uses: pixl8/github-action-twgit-release-version-generator@master
+      - name: Generate release version number
+        id: versiongen
+        uses: pixl8/github-action-twgit-release-version-generator@master
 
       - id: test
-        run: echo "::set-output name=semver_release_string::blah"
-      - run: echo "Release string = ${{ steps.test.outputs.semver_release_string }}"
+        run:
+          - echo "Release string = ${{ steps.versiongen.outputs.semver_release_string }}"
+          - echo "Release snapshot = ${{ steps.versiongen.outputs.semver_is_snapshot }}"
 
       # - name: Package extension zip
       #   uses: pixl8/github-action-build-preside-extension@master
