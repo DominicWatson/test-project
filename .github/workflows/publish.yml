@@ -21,6 +21,9 @@ jobs:
 
       - name: Package extension zip
         uses: pixl8/github-action-build-preside-extension@master
+        env:
+          VERSION_NUMBER: ${{ steps.versiongen.outputs.semver_release_string }}
+          DOWNLOAD_LOCATION: https://lmgtfy.com
 
       - name: Create Release
         id: create_release
