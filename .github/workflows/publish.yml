@@ -46,10 +46,14 @@ jobs:
           asset_name: ${{ steps.versiongen.outputs.semver_release_string }}.zip
           asset_content_type: application/zip
 
+      - name: hack test
+        env:
+          DOWNLOAD_LOCATION: ${{ steps.upload.outputs.browser_download_url }}
+
       - name: Publish to forgebox
         uses: pixl8/github-action-box-publish@master
+        env:
+          VERSION_NUMBER: ${{ steps.versiongen.outputs.semver_release_string }}
         with:
           forgebox_user: pixl8
           forgebox_pass: ${{ secrets.FORGEBOX_PASS }}
-        env:
-          TEST: TEST
