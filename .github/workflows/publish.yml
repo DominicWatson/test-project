@@ -47,8 +47,7 @@ jobs:
           asset_content_type: application/zip
 
       - name: hack test
-        env:
-          DOWNLOAD_LOCATION: ${{ steps.upload.outputs.browser_download_url }}
+        run: echo "DOWNLOAD_LOCATION=${{ steps.upload.outputs.browser_download_url }} >> $GITHUB_ENV"
 
       - name: Publish to forgebox
         uses: pixl8/github-action-box-publish@master
