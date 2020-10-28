@@ -2,10 +2,10 @@
     "name":"Test package",
     "slug":"test-my-package",
     "type":"modules",
-    "version":"${VERSION_NUMBER}",
+    "version":"what",
     "location":"${TEST}",
     "author":"Dominic Watson",
-    "description":"Test description ${VERSION_NUMBER} ${TEST}",
+    "description":"Test description what ${TEST}",
     "ignore":[
         "**/.*",
         "/test/",
