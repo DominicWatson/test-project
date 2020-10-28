@@ -16,44 +16,38 @@ jobs:
           fetch-depth: 0
 
       - name: Generate release version number
-        id: releasegen
+        id: versiongen
         uses: pixl8/github-action-twgit-release-version-generator@master
 
-      - id: test
-        run: echo "Release string = ${{ steps.releasegen.outputs.semver_release_string }}"
+      - name: Package extension zip
+        uses: pixl8/github-action-build-preside-extension@master
 
-      - id: test2
-        run: echo "Release snapshot really = ${{ steps.releasegen.outputs.semver_is_snapshot }}"
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ steps.versiongen.outputs.semver_release_string }}
+          draft: false
+          prerelease: ${{ steps.versiongen.outputs.semver_release_is_snapshot }}
 
-      # - name: Package extension zip
-      #   uses: pixl8/github-action-build-preside-extension@master
+      - name: Upload Release Asset
+        id: upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          asset_path: ${{ env.PACKAGE_ZIP }}
+          asset_name: ${{ steps.versiongen.outputs.semver_release_string }}.zip
+          asset_content_type: application/zip
 
-      # - name: Create Release
-      #   id: create_release
-      #   uses: actions/create-release@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     tag_name: ${{ github.ref }}
-      #     release_name: Release ${{ steps.versiongen.outputs.semver_release_string }}
-      #     draft: false
-      #     prerelease: ${{ steps.versiongen.outputs.semver_release_is_snapshot }}
-
-      # - name: Upload Release Asset
-      #   id: upload
-      #   uses: actions/upload-release-asset@v1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-      #     asset_path: ${{ env.PACKAGE_ZIP }}
-      #     asset_name: ${{ steps.versiongen.outputs.semver_release_string }}.zip
-      #     asset_content_type: application/zip
-
-      # - name: Publish to forgebox
-      #   uses: pixl8/github-action-box-publish@master
-      #   with:
-      #     forgebox_user: pixl8
-      #     forgebox_pass: ${{ secrets.FORGEBOX_PASS }}
-      #     download_location: ${{ steps.upload.outputs.browser_download_url }}
-      #     version_number: ${{ steps.versiongen.outputs.semver_release_string }}
+      - name: Publish to forgebox
+        uses: pixl8/github-action-box-publish@master
+        with:
+          forgebox_user: pixl8
+          forgebox_pass: ${{ secrets.FORGEBOX_PASS }}
+          download_location: ${{ steps.upload.outputs.browser_download_url }}
+          version_number: ${{ steps.versiongen.outputs.semver_release_string }}
