@@ -47,11 +47,16 @@ jobs:
           asset_name: ${{ steps.versiongen.outputs.semver_release_string }}.zip
           asset_content_type: application/zip
 
+      - name: Inject version numbers
+        uses: DominicWatson/envsubst@stable
+        with:
+          files: box.json
+        env:
+          VERSION_NUMBER: ${{ steps.versiongen.outputs.semver_release_string }}
+          DOWNLOAD_LOCATION: ${{ steps.upload.outputs.browser_download_url }}
+
       - name: Publish to forgebox
         uses: pixl8/github-action-box-publish@v1
         with:
           forgebox_user: pixl8
           forgebox_pass: ${{ secrets.FORGEBOX_PASS }}
-        env:
-          VERSION_NUMBER: ${{ steps.versiongen.outputs.semver_release_string }}
-          DOWNLOAD_LOCATION: ${{ steps.upload.outputs.browser_download_url }}
