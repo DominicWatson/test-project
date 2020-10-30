@@ -23,6 +23,7 @@ jobs:
         uses: DominicWatson/github-action-envsubst@stable
         with:
           files: box.json manifest.json
+          patterns: $VERSION_NUMBER
         env:
           VERSION_NUMBER: ${{ steps.versiongen.outputs.semver_release_string }}
 
